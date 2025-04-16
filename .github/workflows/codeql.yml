@@ -1,0 +1,30 @@
+name: "CodeQL - PII Detection"
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  analyze:
+    name: CodeQL Analysis
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v2
+      with:
+        languages: 'ql'
+        queries: ./custom-queries/pii-detection.qls # Reference to your custom query file
+
+    - name: Build the code
+      run: |
+        # If your SAS files require a build process, specify it here
+        echo "No build process required for SAS files."
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v2
