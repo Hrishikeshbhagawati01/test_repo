@@ -1,0 +1,25 @@
+name: "Code Explanation Analysis"
+
+on:
+  push:
+    branches: [main] # Trigger on pushes to the main branch
+  pull_request:
+    branches: [main] # Trigger on pull requests to the main branch
+
+jobs:
+  analyze_code:
+    name: Analyze Python Code
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: 3.x
+
+    - name: Run code explanation script
+      run: |
+        python scripts/explain_code.py
