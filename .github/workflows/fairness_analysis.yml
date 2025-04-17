@@ -1,0 +1,29 @@
+name: "Fairness Analysis for vulnerable.py"
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  fairness_check:
+    name: Check Fairness
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: 3.x
+
+    - name: Install Fairlearn
+      run: |
+        pip install fairlearn
+
+    - name: Run Fairness Analysis
+      run: |
+        python scripts/fairness_analysis.py vulnerable.py
